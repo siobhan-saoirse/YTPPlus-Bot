@@ -1,0 +1,12 @@
+temp_videos/**
+temp/**
+videos/**
+videos_solo/**
+generated/**
+node_modules/**
+lib/music/**
+lib/resources/**
+lib/sounds/**	
+lib/sources/** 
+config.json
+Start.bat
