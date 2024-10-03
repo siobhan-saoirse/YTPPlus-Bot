@@ -132,7 +132,7 @@ client.on(Events.MessageCreate, async function(message){
             
             console.log(sourceList)
             var guid = Utils.guidGen()
-            var loadingmsg = await message.reply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so expect bugs!\n\n')
+            var loadingmsg = await message.reply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
             try {
     
                 var options = {  
@@ -142,7 +142,7 @@ client.on(Events.MessageCreate, async function(message){
                     resolution: [640,360],
                     //intro: "./assets/intro2.mp4",
                     OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                    MAX_CLIPS: Math.random() * 100,
+                    MAX_CLIPS: Math.random() * 60,
                     transitions: true,
                     showFileNames: true,
                     effects: {  
@@ -163,10 +163,10 @@ client.on(Events.MessageCreate, async function(message){
                 new YTPGenerator().configurateAndGo(options).then(function(){
                     loadingmsg.delete();
                     message.reply({
-                        content: 'Heres your video!',
+                        content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
                         files: [{
                             attachment: './generated/ytp_'+guid+'.mp4',
-                            name: 'ytp.mp4',
+                            name: 'SPOILER_ytp.mp4',
                             description: 'A YTP+ video.'
                         }]
                     });
@@ -210,7 +210,7 @@ client.on(Events.MessageCreate, async function(message){
                 
                 console.log(sourceList)
                 var guid = Utils.guidGen()
-                var loadingmsg = await message.reply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so expect bugs!\n\n')
+                var loadingmsg = await message.reply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
                 try {
         
                     var options = {  
@@ -220,7 +220,7 @@ client.on(Events.MessageCreate, async function(message){
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 100,
+                        MAX_CLIPS: Math.random() * 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -241,10 +241,10 @@ client.on(Events.MessageCreate, async function(message){
                     new YTPGenerator().configurateAndGo(options).then(function(){
                         loadingmsg.delete();
                         message.reply({
-                            content: 'Heres your video!',
+                            content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
                             files: [{
                                 attachment: './generated/ytp_'+guid+'.mp4',
-                                name: 'ytp.mp4',
+                                name: 'SPOILER_ytp.mp4',
                                 description: 'A YTP+ video.'
                             }]
                         });
@@ -266,7 +266,7 @@ client.on(Events.MessageCreate, async function(message){
                 
                 console.log(sourceList)
                 var guid = Utils.guidGen()
-                var loadingmsg = await message.reply('Proccessing your generated YTP... this may take a while.\nThis is in beta, so expect bugs!\n\n')
+                var loadingmsg = await message.reply('Proccessing your generated YTP... this may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
                 try {
         
                     var options = {  
@@ -276,7 +276,7 @@ client.on(Events.MessageCreate, async function(message){
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 100,
+                        MAX_CLIPS: Math.random() * 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -297,10 +297,10 @@ client.on(Events.MessageCreate, async function(message){
                     new YTPGenerator().configurateAndGo(options).then(function(){
                         loadingmsg.delete();
                         message.reply({
-                            content: 'Heres your video!',
+                            content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
                             files: [{
                                 attachment: './generated/ytp_'+guid+'.mp4',
-                                name: 'ytp.mp4',
+                                name: 'SPOILER_ytp.mp4',
                                 description: 'A YTP+ video.'
                             }]
                         });
@@ -326,7 +326,7 @@ client.on(Events.MessageCreate, async function(message){
         
         console.log(sourceList2)
         var guid = Utils.guidGen()
-        var loadingmsg = await message.reply('Proccessing the solo generated YTP... This may take a while.\nThis is in beta, so expect bugs!\n\n')
+        var loadingmsg = await message.reply('Proccessing the solo generated YTP... This may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
 
         try {
 
@@ -335,9 +335,9 @@ client.on(Events.MessageCreate, async function(message){
                 MAX_STREAM_DURATION: 1.5, 
                 sourceList: sourceList2,
                 resolution: [640,360],
-                temp: './temp/',
+                
                 OUTPUT_FILE: "./generated/ytpsolo_"+guid+".mp4",
-                MAX_CLIPS: Math.random() * 100,
+                MAX_CLIPS: Math.random() * 60,
                 transitions: true,
                 showFileNames: true,
                 effects: {  
@@ -358,11 +358,11 @@ client.on(Events.MessageCreate, async function(message){
             new YTPGenerator().configurateAndGo(options).then(function(){
                 loadingmsg.delete();
                 message.reply({
-                    content: 'Heres your video!',
+                    content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
                     files: [{ 
                         attachment: './generated/ytpsolo_'+guid+'.mp4',
                         //intro: "./assets/intro2.mp4",
-                        name: 'ytp_solo.mp4',
+                        name: 'SPOILER_ytp_solo.mp4',
                         description: 'A YTP+ video.'
                     }]
                 });
@@ -458,77 +458,71 @@ client.on(Events.InteractionCreate, async interaction => {
             await request.get(interaction.targetMessage.attachments.first().url)
                 .on('error', console.error)
                 .pipe(fs.createWriteStream(__dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4"));
-            
+                await fs.mkdirSync(__dirname + "/videos/"+guid);
                 setTimeout(async function(){
-                    await fs.mkdirSync(__dirname + "/videos/"+guid+"/");
                     await child_process.execFile('ffmpeg', [
-                        '-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
+                        '-i', __dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4",
                         '-b:v', '775k',
                         '-b:a', '64k',
-                        '-fs', '6.3M',
-                        "./videos/"+guid+"/"+guid+".mp4"
-                    ], function(error, stdout, stderr) {
+                        //'-fs', '6.3M',
+                        "-y", __dirname + "/videos/"+guid+"/"+guid+".mp4"
+                    ], async function(error, stdout, stderr) {
                         console.log(error, stdout, stderr);
                         interaction.editReply('Downloaded!')
+                        var sourceList = [];
+
+                        fs.readdirSync(__dirname + "/videos/"+guid).forEach(file => {
+                            sourceList.push(__dirname + "/videos/"+guid+"/"+file)
+                        });
+                        
+                        console.log(sourceList)
+                        var loadingmsg = await interaction.editReply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
+                        try {
+                
+                            var options = {  
+                                debug: true,
+                                MAX_STREAM_DURATION: 1.5, 
+                                sourceList: sourceList,
+                                resolution: [640,360],
+                                //intro: "./assets/intro2.mp4",
+                                OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
+                                MAX_CLIPS: Math.random() * 60,
+                                transitions: true,
+                                showFileNames: true,
+                                effects: {  
+                                    effect_RandomSound: true,
+                                    effect_RandomSoundMute: true,
+                                    effect_Reverse: true,
+                                    effect_Chorus: true,
+                                    effect_Vibrato: true,
+                                    effect_HighPitch: true,
+                                    effect_LowPitch: true,
+                                    effect_SpeedUp: true,
+                                    effect_SlowDown: true,
+                                    effect_Dance: true,
+                                    effect_Squidward: true,
+                                    effect_How: true,
+                                }
+                            } 
+                            new YTPGenerator().configurateAndGo(options).then(function(){
+                                interaction.editReply({
+                                    content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
+                                    files: [{
+                                        attachment: './generated/ytp_'+guid+'.mp4',
+                                        name: 'SPOILER_ytp.mp4',
+                                        description: 'A YTP+ video.'
+                                    }]
+                                });
+                            }).catch(function(e){
+                                interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
+                            });
+                        } catch(e) {
+                            interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
+                        }
                     })  
                     interaction.editReply('Compressing.. This may take a while...');
                 },5000);
-            
-            await sleep(6000);
-            var sourceList = [];
-            
-            fs.readdirSync(__dirname + "/videos/"+guid+"/").forEach(file => {
-                sourceList.push(__dirname + "/videos/"+guid+"/"+file)
-            });
-            
-            console.log(sourceList)
-            var guid = Utils.guidGen()
-            await interaction.editReply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so expect bugs!\n\n')
-            try {
-    
-                var options = {  
-                    debug: true,
-                    MAX_STREAM_DURATION: 1.5, 
-                    sourceList: sourceList,
-                    resolution: [640,360],
-                    //intro: "./assets/intro2.mp4",
-                    OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                    MAX_CLIPS: Math.random() * 100,
-                    transitions: true,
-                    showFileNames: true,
-                    effects: {  
-                        effect_RandomSound: true,
-                        effect_RandomSoundMute: true,
-                        effect_Reverse: true,
-                        effect_Chorus: true,
-                        effect_Vibrato: true,
-                        effect_HighPitch: true,
-                        effect_LowPitch: true,
-                        effect_SpeedUp: true,
-                        effect_SlowDown: true,
-                        effect_Dance: true,
-                        effect_Squidward: true,
-                        effect_How: true,
-                    }
-                } 
-                new YTPGenerator().configurateAndGo(options).then(function(){
-                    interaction.editReply({
-                        content: 'Heres your video!',
-                        files: [{
-                            attachment: './generated/ytp_'+guid+'.mp4',
-                            name: 'ytp.mp4',
-                            description: 'A YTP+ video.'
-                        }]
-                    });
-                }).catch(function(e){
-                    interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
-                });
-            } catch(e) {
-                interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
             }
-        } else {
-            interaction.reply('Hey! I need an video attachment first!~');
-        }
     }
     else if (command == 'ytp') 
     {   
@@ -539,71 +533,73 @@ client.on(Events.InteractionCreate, async interaction => {
             await interaction.reply('Downloading...')
             await fs.mkdirSync(__dirname + "/temp_videos/"+guid);
             await request.get(attachment.url)
-                .on('error', console.error)
-                .pipe(fs.createWriteStream(__dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4"));
+            .on('error', console.error)
+            .pipe(fs.createWriteStream(__dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4"));
+            await fs.mkdirSync(__dirname + "/videos/"+guid);
+            setTimeout(async function(){
                 await child_process.execFile('ffmpeg', [
-					'-i', __dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4",
-					'-b:v', '775k',
-					'-b:a', '64k',
-					//'-fs', '6.3M',
-					__dirname + "/temp_videos/"+guid+"/"+guid+".mp4"
-				], function(error, stdout, stderr) {
-					interaction.editReply('Downloaded!')
-				})  
-				interaction.editReply('Compressing.. This may take a while...');
-            
-            await sleep(1000);
-            var sourceList = [];
-            
-            fs.readdirSync(__dirname + "/temp_videos/"+guid).forEach(file => {
-                sourceList.push(__dirname + "/temp_videos/"+guid+"/"+file)
-            });
-            
-            console.log(sourceList)
-            var guid = Utils.guidGen()
-            var loadingmsg = await interaction.editReply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so expect bugs!\n\n')
-            try {
-    
-                var options = {  
-                    debug: true,
-                    MAX_STREAM_DURATION: 1.5, 
-                    sourceList: sourceList,
-                    resolution: [640,360],
-                    //intro: "./assets/intro2.mp4",
-                    OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                    MAX_CLIPS: Math.random() * 100,
-                    transitions: true,
-                    showFileNames: true,
-                    effects: {  
-                        effect_RandomSound: true,
-                        effect_RandomSoundMute: true,
-                        effect_Reverse: true,
-                        effect_Chorus: true,
-                        effect_Vibrato: true,
-                        effect_HighPitch: true,
-                        effect_LowPitch: true,
-                        effect_SpeedUp: true,
-                        effect_SlowDown: true,
-                        effect_Dance: true,
-                        effect_Squidward: true,
-                        effect_How: true,
-                    }
-                } 
-                new YTPGenerator().configurateAndGo(options).then(function(){
-                    interaction.editReply({
-                        content: 'Heres your video!',
-                        files: [{
-                            attachment: './generated/ytp_'+guid+'.mp4',
-                            name: 'ytp.mp4',
-                            description: 'A YTP+ video.'
-                        }]
+                    '-i', __dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4",
+                    '-b:v', '775k',
+                    '-b:a', '64k',
+                    //'-fs', '6.3M',
+                    "-y", __dirname + "/videos/"+guid+"/"+guid+".mp4"
+                ], async function(error, stdout, stderr) {
+                    console.log(error, stdout, stderr);
+                    interaction.editReply('Downloaded!')
+                    var sourceList = [];
+
+                    fs.readdirSync(__dirname + "/videos/"+guid).forEach(file => {
+                        sourceList.push(__dirname + "/videos/"+guid+"/"+file)
                     });
-                }).catch(function(e){
-                    interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
-                });
-            } catch(e) {
-                interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
-            }
+                    
+                    console.log(sourceList)
+                    var loadingmsg = await interaction.editReply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
+                    try {
+            
+                        var options = {  
+                            debug: true,
+                            MAX_STREAM_DURATION: 1.5, 
+                            sourceList: sourceList,
+                            resolution: [640,360],
+                            //intro: "./assets/intro2.mp4",
+                            OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
+                            MAX_CLIPS: Math.random() * 60,
+                            transitions: true,
+                            showFileNames: true,
+                            effects: {  
+                                effect_RandomSound: true,
+                                effect_RandomSoundMute: true,
+                                effect_Reverse: true,
+                                effect_Chorus: true,
+                                effect_Vibrato: true,
+                                effect_HighPitch: true,
+                                effect_LowPitch: true,
+                                effect_SpeedUp: true,
+                                effect_SlowDown: true,
+                                effect_Dance: true,
+                                effect_Squidward: true,
+                                effect_How: true,
+                            }
+                        } 
+                        new YTPGenerator().configurateAndGo(options).then(function(){
+                            interaction.editReply({
+                                content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
+                                files: [{
+                                    attachment: './generated/ytp_'+guid+'.mp4',
+                                    name: 'SPOILER_ytp.mp4',
+                                    description: 'A YTP+ video.'
+                                }]
+                            });
+                        }).catch(function(e){
+                            interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
+                        });
+                    } catch(e) {
+                        interaction.editReply('There was an error proccessing the video. Grab a programmer!\n```'+e+'```');
+                    }
+                })  
+                interaction.editReply('Compressing.. This may take a while...');
+            },5000);
+            
         } else {
             /*
             if (!args2.endsWith("ytp")) {
@@ -628,7 +624,7 @@ client.on(Events.InteractionCreate, async interaction => {
                 
                 console.log(sourceList)
                 var guid = Utils.guidGen()
-                var loadingmsg = await interaction.reply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so expect bugs!\n\n')
+                var loadingmsg = await interaction.reply('Proccessing your requested YTP... this may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
                 try {
         
                     var options = {  
@@ -638,7 +634,7 @@ client.on(Events.InteractionCreate, async interaction => {
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 100,
+                        MAX_CLIPS: Math.random() * 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -659,10 +655,10 @@ client.on(Events.InteractionCreate, async interaction => {
                     new YTPGenerator().configurateAndGo(options).then(function(){
                         loadingmsg.delete();
                         interaction.reply({
-                            content: 'Heres your video!',
+                            content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
                             files: [{
                                 attachment: './generated/ytp_'+guid+'.mp4',
-                                name: 'ytp.mp4',
+                                name: 'SPOILER_ytp.mp4',
                                 description: 'A YTP+ video.'
                             }]
                         });
@@ -684,7 +680,7 @@ client.on(Events.InteractionCreate, async interaction => {
                 
                 console.log(sourceList)
                 var guid = Utils.guidGen()
-                var loadingmsg = await interaction.reply('Proccessing your generated YTP... this may take a while.\nThis is in beta, so expect bugs!\n\n')
+                var loadingmsg = await interaction.reply('Proccessing your generated YTP... this may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
                 try {
         
                     var options = {  
@@ -694,7 +690,7 @@ client.on(Events.InteractionCreate, async interaction => {
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 100,
+                        MAX_CLIPS: Math.random() * 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -714,10 +710,10 @@ client.on(Events.InteractionCreate, async interaction => {
                     } 
                     new YTPGenerator().configurateAndGo(options).then(function(){
                         interaction.editReply({
-                            content: 'Heres your video!',
+                            content: 'Heres your YTP+! Warning: You might want to bleach your eyes.',
                             files: [{
                                 attachment: './generated/ytp_'+guid+'.mp4',
-                                name: 'ytp.mp4',
+                                name: 'SPOILER_ytp.mp4',
                                 description: 'A YTP+ video.'
                             }]
                         });
@@ -741,7 +737,7 @@ client.on(Events.InteractionCreate, async interaction => {
         
         console.log(sourceList2)
         var guid = Utils.guidGen()
-        var loadingmsg = await interaction.reply('Proccessing the solo generated YTP... This may take a while.\nThis is in beta, so expect bugs!\n\n')
+        var loadingmsg = await interaction.reply('Proccessing the solo generated YTP... This may take a while.\nThis is in beta, so don\'t expect a video to be always sent!!\n\n')
         try {
 
             var options = {  
@@ -749,9 +745,9 @@ client.on(Events.InteractionCreate, async interaction => {
                 MAX_STREAM_DURATION: 1.5, 
                 sourceList: sourceList2,
                 resolution: [640,360],
-                temp: './temp/',
+                
                 OUTPUT_FILE: "./generated/ytpsolo_"+guid+".mp4",
-                MAX_CLIPS: Math.random() * 100,
+                MAX_CLIPS: Math.random() * 60,
                 transitions: true,
                 showFileNames: true,
                 effects: {  
@@ -771,11 +767,11 @@ client.on(Events.InteractionCreate, async interaction => {
             } 
             new YTPGenerator().configurateAndGo(options).then(function(){
                 interaction.editReply({
-                    content: 'Heres your video!',
+                    content: 'Heres your solo YTP+! Warning: You might want to bleach your eyes.',
                     files: [{
                         attachment: './generated/ytpsolo_'+guid+'.mp4',
                         //intro: "./assets/intro2.mp4",
-                        name: 'ytp_solo.mp4',
+                        name: 'SPOILER_ytp_solo.mp4',
                         description: 'A YTP+ video.'
                     }]
                 });
