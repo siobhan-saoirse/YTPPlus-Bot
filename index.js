@@ -460,12 +460,13 @@ client.on(Events.InteractionCreate, async interaction => {
                 .pipe(fs.createWriteStream(__dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4"));
             
                 setTimeout(async function(){
+                    await fs.mkdirSync(__dirname + "/videos/"+guid+"/");
                     await child_process.execFile('ffmpeg', [
                         '-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
                         '-b:v', '775k',
                         '-b:a', '64k',
-                        //'-fs', '6.3M',
-                        "./videos/"+guid+".mp4"
+                        '-fs', '6.3M',
+                        "./videos/"+guid+"/"+guid+".mp4"
                     ], function(error, stdout, stderr) {
                         console.log(error, stdout, stderr);
                         interaction.editReply('Downloaded!')
@@ -476,8 +477,8 @@ client.on(Events.InteractionCreate, async interaction => {
             await sleep(6000);
             var sourceList = [];
             
-            fs.readdirSync(__dirname + "/temp_videos/"+guid).forEach(file => {
-                sourceList.push(__dirname + "/temp_videos/"+guid+"/"+file)
+            fs.readdirSync(__dirname + "/videos/"+guid+"/").forEach(file => {
+                sourceList.push(__dirname + "/videos/"+guid+"/"+file)
             });
             
             console.log(sourceList)
