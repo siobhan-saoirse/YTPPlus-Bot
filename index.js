@@ -16,8 +16,8 @@ let fs = require(`fs`);
 const rest = new REST({ version: '9' }).setToken(token);
 
 const commands = [
-	new SlashCommandBuilder().setName('ytp').addAttachmentOption(option => option.setName('video').setDescription('The video file')).setDescription('Creates a YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
-	new SlashCommandBuilder().setName('ytpsolo').setDescription('Creates a Solo YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
+	new SlashCommandBuilder().setName('ytp').addAttachmentOption(option => option.setName('video').setDescription('The video file')).setDescription('Creates a YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(false),
+	new SlashCommandBuilder().setName('ytpsolo').setDescription('Creates a Solo YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(false),
 	new SlashCommandBuilder().setName('download').setDescription('Adds a video to the YTP+ videos folder!').addAttachmentOption(option => option.setName('video').setDescription('The video file')).addStringOption(option => option.setName("link").setDescription('The video link')).setContexts(InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel).setIntegrationTypes(ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall),
 	new SlashCommandBuilder().setName('invite').setDescription('Replies with the bot invite!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
     new ContextMenuCommandBuilder().setName('YTP this Video').setType(ApplicationCommandType.Message).setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
@@ -46,8 +46,10 @@ function sleep(ms) {
 
 client.on(Events.MessageCreate, async function(message){
     if (message.author.bot) return;
-    if(message.attachments.first()){//checks if an attachment is sent
-        download(msg.attachments.first().url);//Function I will show later
+    if(message.attachments.first().url){//checks if an attachment is sent
+        if(message.attachments.first().filename === `mp4` || message.attachments.first().filename === `webm` || message.attachments.first().filename === `gif` || message.attachments.first().filename === `mov`){
+            download(msg.attachments.first().url);
+        }
     }
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -66,7 +68,7 @@ client.on(Events.MessageCreate, async function(message){
 					'-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
 					'-b:v', '775k',
 					'-b:a', '64k',
-					//'-fs', '6.3M',
+					'-fs', '6.3M',
 					"./videos/"+guid+".mp4"
 				], function(error, stdout, stderr) {
 					console.log(error, stdout, stderr);
@@ -88,7 +90,7 @@ client.on(Events.MessageCreate, async function(message){
 					'-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
 					'-b:v', '775k',
 					'-b:a', '64k',
-					//'-fs', '6.3M',
+					'-fs', '6.3M',
 					"./videos/"+guid+".mp4"
 				], function(error, stdout, stderr) {
 					console.log(error, stdout, stderr);
@@ -115,7 +117,7 @@ client.on(Events.MessageCreate, async function(message){
 				'-i', __dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4",
 				'-b:v', '775k',
 				'-b:a', '64k',
-				//'-fs', '6.3M',
+				'-fs', '6.3M',
 				__dirname + "/temp_videos/"+guid+"/"+guid+".mp4"
 			], function(error, stdout, stderr) {
 				console.log(error, stdout, stderr);
@@ -142,7 +144,7 @@ client.on(Events.MessageCreate, async function(message){
                     resolution: [640,360],
                     //intro: "./assets/intro2.mp4",
                     OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                    MAX_CLIPS: Math.random() * 60,
+                    MAX_CLIPS: 60,
                     transitions: true,
                     showFileNames: true,
                     effects: {  
@@ -194,7 +196,7 @@ client.on(Events.MessageCreate, async function(message){
 					'-i', __dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4",
 					'-b:v', '775k',
 					'-b:a', '64k',
-					//'-fs', '6.3M',
+					'-fs', '6.3M',
 					__dirname + "/temp_videos/"+guid+"/"+guid+".mp4"
 				], function(error, stdout, stderr) {
 					console.log(error, stdout, stderr);
@@ -220,7 +222,7 @@ client.on(Events.MessageCreate, async function(message){
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 60,
+                        MAX_CLIPS: 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -276,7 +278,7 @@ client.on(Events.MessageCreate, async function(message){
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 60,
+                        MAX_CLIPS: 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -337,7 +339,7 @@ client.on(Events.MessageCreate, async function(message){
                 resolution: [640,360],
                 
                 OUTPUT_FILE: "./generated/ytpsolo_"+guid+".mp4",
-                MAX_CLIPS: Math.random() * 60,
+                MAX_CLIPS: 60,
                 transitions: true,
                 showFileNames: true,
                 effects: {  
@@ -397,7 +399,7 @@ client.on(Events.InteractionCreate, async interaction => {
 					'-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
 					'-b:v', '775k',
 					'-b:a', '64k',
-					//'-fs', '6.3M',
+					'-fs', '6.3M',
 					"./videos/"+guid+".mp4"
 				], function(error, stdout, stderr) {
 					console.log(error, stdout, stderr);
@@ -418,7 +420,7 @@ client.on(Events.InteractionCreate, async interaction => {
 					'-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
 					'-b:v', '775k',
 					'-b:a', '64k',
-					//'-fs', '6.3M',
+					'-fs', '6.3M',
 					"./videos/"+guid+".mp4"
 				], function(error, stdout, stderr) {
 					console.log(error, stdout, stderr);
@@ -433,7 +435,7 @@ client.on(Events.InteractionCreate, async interaction => {
                         '-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
                         '-b:v', '775k',
                         '-b:a', '64k',
-                        //'-fs', '6.3M',
+                        '-fs', '6.3M',
                         "./videos/"+guid+".mp4"
                     ], function(error, stdout, stderr) {
                         console.log(error, stdout, stderr);
@@ -464,7 +466,7 @@ client.on(Events.InteractionCreate, async interaction => {
                         '-i', __dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4",
                         '-b:v', '775k',
                         '-b:a', '64k',
-                        //'-fs', '6.3M',
+                        '-fs', '6.3M',
                         "-y", __dirname + "/videos/"+guid+"/"+guid+".mp4"
                     ], async function(error, stdout, stderr) {
                         console.log(error, stdout, stderr);
@@ -486,7 +488,7 @@ client.on(Events.InteractionCreate, async interaction => {
                                 resolution: [640,360],
                                 //intro: "./assets/intro2.mp4",
                                 OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                                MAX_CLIPS: Math.random() * 60,
+                                MAX_CLIPS: 60,
                                 transitions: true,
                                 showFileNames: true,
                                 effects: {  
@@ -541,7 +543,7 @@ client.on(Events.InteractionCreate, async interaction => {
                     '-i', __dirname + "/temp_videos/"+guid+"/"+guid+"_uncompressed.mp4",
                     '-b:v', '775k',
                     '-b:a', '64k',
-                    //'-fs', '6.3M',
+                    '-fs', '6.3M',
                     "-y", __dirname + "/videos/"+guid+"/"+guid+".mp4"
                 ], async function(error, stdout, stderr) {
                     console.log(error, stdout, stderr);
@@ -563,7 +565,7 @@ client.on(Events.InteractionCreate, async interaction => {
                             resolution: [640,360],
                             //intro: "./assets/intro2.mp4",
                             OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                            MAX_CLIPS: Math.random() * 60,
+                            MAX_CLIPS: 60,
                             transitions: true,
                             showFileNames: true,
                             effects: {  
@@ -634,7 +636,7 @@ client.on(Events.InteractionCreate, async interaction => {
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 60,
+                        MAX_CLIPS: 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -690,7 +692,7 @@ client.on(Events.InteractionCreate, async interaction => {
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
                         OUTPUT_FILE: "./generated/ytp_"+guid+".mp4",
-                        MAX_CLIPS: Math.random() * 60,
+                        MAX_CLIPS: 60,
                         transitions: true,
                         showFileNames: true,
                         effects: {  
@@ -747,7 +749,7 @@ client.on(Events.InteractionCreate, async interaction => {
                 resolution: [640,360],
                 
                 OUTPUT_FILE: "./generated/ytpsolo_"+guid+".mp4",
-                MAX_CLIPS: Math.random() * 60,
+                MAX_CLIPS: 60,
                 transitions: true,
                 showFileNames: true,
                 effects: {  
