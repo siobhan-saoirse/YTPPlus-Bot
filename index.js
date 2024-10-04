@@ -139,7 +139,7 @@ client.on(Events.MessageCreate, async function(message){
     
                 var options = {  
                     debug: true,
-                    MAX_STREAM_DURATION: 1.5, 
+                    //MAX_STREAM_DURATION: 1.5, 
                     sourceList: sourceList,
                     resolution: [640,360],
                     //intro: "./assets/intro2.mp4",
@@ -217,7 +217,7 @@ client.on(Events.MessageCreate, async function(message){
         
                     var options = {  
                         debug: true,
-                        MAX_STREAM_DURATION: 1.5, 
+                        //MAX_STREAM_DURATION: 1.5, 
                         sourceList: sourceList,
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
@@ -273,7 +273,7 @@ client.on(Events.MessageCreate, async function(message){
         
                     var options = {  
                         debug: true,
-                        MAX_STREAM_DURATION: 1.5, 
+                        //MAX_STREAM_DURATION: 1.5, 
                         sourceList: sourceList,
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
@@ -334,7 +334,7 @@ client.on(Events.MessageCreate, async function(message){
 
             var options = {  
                 debug: true,
-                MAX_STREAM_DURATION: 1.5, 
+                //MAX_STREAM_DURATION: 1.5, 
                 sourceList: sourceList2,
                 resolution: [640,360],
                 
@@ -483,7 +483,7 @@ client.on(Events.InteractionCreate, async interaction => {
                 
                             var options = {  
                                 debug: true,
-                                MAX_STREAM_DURATION: 1.5, 
+                                //MAX_STREAM_DURATION: 1.5, 
                                 sourceList: sourceList,
                                 resolution: [640,360],
                                 //intro: "./assets/intro2.mp4",
@@ -560,7 +560,7 @@ client.on(Events.InteractionCreate, async interaction => {
             
                         var options = {  
                             debug: true,
-                            MAX_STREAM_DURATION: 1.5, 
+                            //MAX_STREAM_DURATION: 1.5, 
                             sourceList: sourceList,
                             resolution: [640,360],
                             //intro: "./assets/intro2.mp4",
@@ -631,7 +631,7 @@ client.on(Events.InteractionCreate, async interaction => {
         
                     var options = {  
                         debug: true,
-                        MAX_STREAM_DURATION: 1.5, 
+                        //MAX_STREAM_DURATION: 1.5, 
                         sourceList: sourceList,
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
@@ -687,7 +687,7 @@ client.on(Events.InteractionCreate, async interaction => {
         
                     var options = {  
                         debug: true,
-                        MAX_STREAM_DURATION: 1.5, 
+                        //MAX_STREAM_DURATION: 1.5, 
                         sourceList: sourceList,
                         resolution: [640,360],
                         //intro: "./assets/intro2.mp4",
@@ -744,7 +744,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
             var options = {  
                 debug: true,
-                MAX_STREAM_DURATION: 1.5, 
+                //MAX_STREAM_DURATION: 1.5, 
                 sourceList: sourceList2,
                 resolution: [640,360],
                 
