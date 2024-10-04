@@ -3,6 +3,7 @@ temp/**
 videos/**
 videos_solo/**
 generated/**
+ytp_videos/**
 node_modules/**
 lib/music/**
 # lib/resources/**

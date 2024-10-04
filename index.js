@@ -17,7 +17,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 const commands = [
 	new SlashCommandBuilder().setName('ytp').addAttachmentOption(option => option.setName('video').setDescription('The video file')).setDescription('Creates a YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(false),
-	new SlashCommandBuilder().setName('ytpsolo').setDescription('Creates a Solo YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(true),
+	new SlashCommandBuilder().setName('ytpsolo').setDescription('Creates a Solo YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(false),
 	new SlashCommandBuilder().setName('download').setDescription('Adds a video to the YTP+ videos folder!').addAttachmentOption(option => option.setName('video').setDescription('The video file')).addStringOption(option => option.setName("link").setDescription('The video link')).setContexts(InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel).setIntegrationTypes(ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall),
 	new SlashCommandBuilder().setName('invite').setDescription('Replies with the bot invite!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
     new ContextMenuCommandBuilder().setName('YTP this Video').setType(ApplicationCommandType.Message).setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
@@ -62,10 +62,10 @@ client.on(Events.MessageCreate, async function(message){
             message.reply('Downloading...')
             await request.get(message.attachments.first().url)
                 .on('error', console.error)
-                .pipe(fs.createWriteStream('./temp_videos/'+guid+'_uncompressed.mp4'));
+                .pipe(fs.createWriteStream('./ytp_videos/'+guid+'_uncompressed.mp4'));
             setTimeout(async function(){
 				await child_process.execFile('ffmpeg', [
-					'-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
+					'-i', __dirname + "/ytp_videos/"+guid+"_uncompressed.mp4",
 					'-b:v', '775k',
 					'-b:a', '64k',
 					'-fs', '6.3M',
@@ -83,11 +83,11 @@ client.on(Events.MessageCreate, async function(message){
             if (!ytdl.validateURL(url)) {
                 return message.reply("Please send a valid video link");
             }
-            await ytdl(url, { filter: format => format.container === 'mp4' }).pipe(fs.createWriteStream('./temp_videos/'+guid+'_uncompressed.mp4'))
+            await ytdl(url, { filter: format => format.container === 'mp4' }).pipe(fs.createWriteStream('./ytp_videos/'+guid+'_uncompressed.mp4'))
                 
 			setTimeout(async function(){
 				await child_process.execFile('ffmpeg', [
-					'-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
+					'-i', __dirname + "/ytp_videos/"+guid+"_uncompressed.mp4",
 					'-b:v', '775k',
 					'-b:a', '64k',
 					'-fs', '6.3M',
@@ -262,8 +262,8 @@ client.on(Events.MessageCreate, async function(message){
 
                 var sourceList = [];
         
-                fs.readdirSync('./videos').forEach(file => {
-                    sourceList.push('./videos/'+file)
+                fs.readdirSync('./ytp_videos').forEach(file => {
+                    sourceList.push('./ytp_videos/'+file)
                 });
                 
                 console.log(sourceList)
@@ -396,11 +396,11 @@ client.on(Events.InteractionCreate, async interaction => {
                 .pipe(fs.createWriteStream('./temp_videos/'+guid+'_uncompressed.mp4'));
 			setTimeout(async function(){
 				await child_process.execFile('ffmpeg', [
-					'-i', __dirname + "/temp_videos/"+guid+"_uncompressed.mp4",
+					'-i', __dirname + './temp_videos/'+guid+'_uncompressed.mp4',
 					'-b:v', '775k',
 					'-b:a', '64k',
 					'-fs', '6.3M',
-					"./videos/"+guid+".mp4"
+					"./ytp_videos/"+guid+".mp4"
 				], function(error, stdout, stderr) {
 					console.log(error, stdout, stderr);
 				})  
@@ -421,7 +421,7 @@ client.on(Events.InteractionCreate, async interaction => {
 					'-b:v', '775k',
 					'-b:a', '64k',
 					'-fs', '6.3M',
-					"./videos/"+guid+".mp4"
+					"./ytp_videos/"+guid+".mp4"
 				], function(error, stdout, stderr) {
 					console.log(error, stdout, stderr);
 				})  
@@ -436,7 +436,7 @@ client.on(Events.InteractionCreate, async interaction => {
                         '-b:v', '775k',
                         '-b:a', '64k',
                         '-fs', '6.3M',
-                        "./videos/"+guid+".mp4"
+                        "./ytp_videos/"+guid+".mp4"
                     ], function(error, stdout, stderr) {
                         console.log(error, stdout, stderr);
                         interaction.editReply('Downloaded!')
@@ -676,8 +676,8 @@ client.on(Events.InteractionCreate, async interaction => {
 
                 var sourceList = [];
         
-                fs.readdirSync('./videos').forEach(file => {
-                    sourceList.push('./videos/'+file)
+                fs.readdirSync('./ytp_videos').forEach(file => {
+                    sourceList.push('./ytp_videos/'+file)
                 });
                 
                 console.log(sourceList)
