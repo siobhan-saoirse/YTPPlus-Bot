@@ -17,7 +17,7 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 const commands = [
 	new SlashCommandBuilder().setName('ytp').addAttachmentOption(option => option.setName('video').setDescription('The video file')).setDescription('Creates a YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(false),
-	new SlashCommandBuilder().setName('ytpsolo').setDescription('Creates a Solo YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(false),
+	new SlashCommandBuilder().setName('ytp-solo').setDescription('Creates a Solo YTP+ video!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]).setNSFW(false),
 	new SlashCommandBuilder().setName('download').setDescription('Adds a video to the YTP+ videos folder!').addAttachmentOption(option => option.setName('video').setDescription('The video file')).addStringOption(option => option.setName("link").setDescription('The video link')).setContexts(InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel).setIntegrationTypes(ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall),
 	new SlashCommandBuilder().setName('invite').setDescription('Replies with the bot invite!').setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
     new ContextMenuCommandBuilder().setName('YTP this Video').setType(ApplicationCommandType.Message).setContexts([InteractionContextType.BotDM,InteractionContextType.Guild,InteractionContextType.PrivateChannel]).setIntegrationTypes([ApplicationIntegrationType.GuildInstall,ApplicationIntegrationType.UserInstall]),
@@ -318,7 +318,7 @@ client.on(Events.MessageCreate, async function(message){
 
         }
     }
-    else if (command == 'ytpsolo') 
+    else if (command == 'ytp-solo') 
     {   
         var sourceList2 = [];
         
@@ -452,7 +452,7 @@ client.on(Events.InteractionCreate, async interaction => {
     }
     else if (command == 'YTP this Video' && interaction.isMessageContextMenuCommand()) 
     {
-        if (interaction.targetMessage.attachments.first().url) {
+        if (interaction.targetMessage.attachments.first() != null) {
 
             var guid = Utils.guidGen()
             interaction.reply('Downloading...')
@@ -729,7 +729,7 @@ client.on(Events.InteractionCreate, async interaction => {
 
         }
     }
-    else if (command == 'ytpsolo') 
+    else if (command == 'ytp-solo') 
     {   
         var sourceList2 = [];
         
